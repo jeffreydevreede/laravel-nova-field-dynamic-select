@@ -17,6 +17,10 @@ trait HasDynamicOptions
 
     public function getOptions($parameters = [])
     {
+        if (is_string($parameters)) {
+            $parameters = json_decode($parameters, true);
+        }
+
         $options = $this->options instanceof Closure
             ? call_user_func($this->options, $parameters)
             : $this->options;

@@ -100,10 +100,25 @@ export default {
                 value: this.value,
                 field: this.field
             });
-            this.options = (await Nova.request().post("/nova-vendor/dynamic-select/options/"+this.resourceName, {
-                attribute: this.removeFlexibleContentPrefix(this.field.attribute),
-                depends: this.getDependValues(dependsOnValue.value, dependsOnValue.field.attribute.toLowerCase())
-            })).data.options;
+
+            if(this.$parent.$parent.$options.name == 'confirm-action-modal') {
+                this.options = (await Nova.request().get("/nova-vendor/dynamic-select/action-options/"+this.resourceName, {
+                    params: {
+                        action: this.$parent.$parent.$options.propsData.selectedAction.uriKey,
+                        pivotAction: false,
+                        viaResource: '',
+                        viaResourceId: '',
+                        viaRelationship: '',
+                        attribute: this.removeFlexibleContentPrefix(this.field.attribute),
+                        depends: this.getDependValues(dependsOnValue.value, dependsOnValue.field.attribute.toLowerCase())
+                    }
+                })).data.options;
+            } else {
+                this.options = (await Nova.request().post("/nova-vendor/dynamic-select/options/"+this.resourceName, {
+                    attribute: this.removeFlexibleContentPrefix(this.field.attribute),
+                    depends: this.getDependValues(dependsOnValue.value, dependsOnValue.field.attribute.toLowerCase())
+                })).data.options;
+            }
 
             if(this.value) {
                 this.value = this.options.find(item => item['value'] == this.value['value']);
