@@ -104,7 +104,7 @@ export default {
             if(this.$parent.$parent.$options.name == 'confirm-action-modal') {
                 this.options = (await Nova.request().get("/nova-vendor/dynamic-select/action-options/"+this.resourceName, {
                     params: {
-                        action: this.$parent.$parent.$options.propsData.selectedAction.uriKey,
+                        action: this.$parent.$parent.$options.propsData.action.uriKey,
                         pivotAction: false,
                         viaResource: '',
                         viaResourceId: '',
