@@ -5,6 +5,7 @@
                 v-model="value"
                 :options="options"
                 :searchable="true"
+                :disabled="isReadonly"
                 track-by="value"
                 label="label"
                 placeholder="Pick a value"
@@ -71,9 +72,10 @@ export default {
          * Fill the given FormData object with the field's internal value.
          */
         fill(formData) {
-            if(this.value) {
-                formData.append(this.field.attribute, this.value.value)
-            }
+            formData.append(
+                this.field.attribute,
+                typeof this.value == 'undefined' || !this.value ? '' : this.value.value
+            )
         },
 
         /**
@@ -90,7 +92,7 @@ export default {
 
         async onChange(row) {
             Nova.$emit("nova-dynamic-select-changed-" + this.field.attribute.toLowerCase(), {
-                value: row.value,
+                value: row ? row.value : null,
                 field: this.field
             });
         },
