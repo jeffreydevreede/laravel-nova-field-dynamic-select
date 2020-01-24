@@ -62,7 +62,6 @@ export default {
          */
         setInitialValue() {
             this.options = this.field.options;
-
             if(this.field.value) {
                 this.value = this.options.find(item => item['value'] == this.field.value);
             }
@@ -151,5 +150,9 @@ export default {
     }
     .multiselect__select:before {
         content: none !important;
+    }
+
+    .multiselect__content-wrapper {
+        overflow: initial !important;
     }
 </style>
