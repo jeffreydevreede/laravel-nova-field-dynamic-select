@@ -103,6 +103,12 @@ export default {
             });
 
             if(this.$parent.$parent.$options.name == 'confirm-action-modal') {
+
+                let dependValues = {};
+                for (const [key, value] of Object.entries(this.getDependValues(dependsOnValue.value, dependsOnValue.field.attribute.toLowerCase()))) {
+                    dependValues[key] = value;
+                }
+
                 this.options = (await Nova.request().get("/nova-vendor/dynamic-select/action-options/"+this.resourceName, {
                     params: {
                         action: this.$parent.$parent.$options.propsData.action.uriKey,
@@ -111,7 +117,7 @@ export default {
                         viaResourceId: '',
                         viaRelationship: '',
                         attribute: this.removeFlexibleContentPrefix(this.field.attribute),
-                        depends: this.getDependValues(dependsOnValue.value, dependsOnValue.field.attribute.toLowerCase())
+                        depends: dependValues
                     }
                 })).data.options;
             } else {
