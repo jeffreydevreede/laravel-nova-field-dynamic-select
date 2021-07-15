@@ -14,4 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/options', 'OptionsController@index');
+Route::post('/options/{resource}', 'OptionsController@index');
+
+Route::get('/action-options/{resource}', 'OptionsController@action');

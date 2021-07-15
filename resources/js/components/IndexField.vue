@@ -1,5 +1,5 @@
 <template>
-    <span>{{ field.value }}</span>
+    <span>{{ field.options.find(item => item['value'] == field.value).label }}</span>
 </template>
 
 <script>
