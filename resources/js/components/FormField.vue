@@ -101,7 +101,6 @@ export default {
                 value: this.value,
                 field: this.field
             });
-
             if(this.$parent.$parent.$options.name == 'confirm-action-modal') {
 
                 let dependValues = {};
@@ -117,7 +116,8 @@ export default {
                         viaResourceId: '',
                         viaRelationship: '',
                         attribute: this.removeFlexibleContentPrefix(this.field.attribute),
-                        depends: dependValues
+                        depends: dependValues,
+                        resources: this.$parent.$parent.selectedResources.join(',')
                     }
                 })).data.options;
             } else {
